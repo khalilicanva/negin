@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Negin.exe 💗</title>
+<meta name="description" content="A tiny website made especially for Negin.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap');
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:#09090d;color:#f7f4f8;font-family:Vazirmatn,Arial,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 10%,rgba(255,92,151,.12),transparent 35%),radial-gradient(circle at 10% 80%,rgba(125,95,255,.08),transparent 30%);z-index:-2}
+.stars{position:fixed;inset:0;pointer-events:none;opacity:.6;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:67px 67px;mask-image:linear-gradient(to bottom,black,transparent 80%);z-index:-1}
+.container{width:min(940px,92%);margin:auto}
+.screen{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:35px 0}
+.card{background:rgba(20,20,28,.72);border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(18px);border-radius:28px;padding:34px;box-shadow:0 25px 80px rgba(0,0,0,.35)}
+.loader{font-family:monospace;color:#ff6b9f;font-size:14px;direction:ltr}
+h1{font-size:clamp(48px,12vw,100px);margin:15px 0 0;letter-spacing:2px;line-height:1}
+.gradient{background:linear-gradient(90deg,#fff,#ff78a9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{color:#aaa7b2;font-size:16px;margin:18px 0 28px}
+button{border:0;cursor:pointer;font-family:inherit;font-weight:700;border-radius:999px;padding:14px 23px;transition:.2s}
+.primary{background:#ff5f98;color:#fff;box-shadow:0 8px 30px rgba(255,95,152,.25)}
+.primary:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(255,95,152,.35)}
+.ghost{background:#fff0f5;color:#ff5f98}
+section{padding:90px 0}
+.section-title{font-size:30px;margin:0 0 10px}.muted{color:#9e9ba6}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.panel{background:#111118;border:1px solid #24242e;border-radius:22px;padding:24px}
+.panel h3{margin-top:0}.pink{color:#ff76a5}
+.question{margin:18px 0}.question label{display:block;margin-bottom:10px;color:#d9d6dc}
+input[type=range]{width:100%;accent-color:#ff5f98}
+.score{font-size:50px;font-weight:800;color:#ff6b9f}.score small{font-size:16px;color:#aaa}
+.result{min-height:30px;color:#c9c5ce;margin-top:8px}
+.letter{position:relative;overflow:hidden}.letter:after{content:"♡";position:absolute;font-size:180px;right:-35px;bottom:-90px;color:rgba(255,95,152,.05)}
+details{border-top:1px solid #292934;padding:17px 0}details:first-of-type{border-top:0}summary{cursor:pointer;font-weight:700}
+footer{text-align:center;padding:45px 0 70px;color:#77747d;font-size:13px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:#fff;color:#17151a;padding:13px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.3s;z-index:10;box-shadow:0 12px 35px #0008}.toast.show{opacity:1;transform:translate(-50%,0)}
+.heart{position:fixed;pointer-events:none;animation:float 1.7s ease-out forwards;font-size:24px;z-index:9}
+@keyframes float{0%{transform:translateY(0) scale(.7);opacity:0}15%{opacity:1}100%{transform:translateY(-180px) translateX(var(--x)) scale(1.4);opacity:0}}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.card{padding:25px}.screen{min-height:92vh}}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div id="toast" class="toast"></div>
+
+<header class="screen">
+  <div class="container">
+    <div class="card">
+      <div class="loader">initializing Negin.exe...</div>
+      <h1 class="gradient">NEGIN</h1>
+      <p class="subtitle">Apparently, someone made a whole website about you. <br>And yes... you're probably worth it. ♡</p>
+      <button class="primary" onclick="enterSite()">ENTER THE NEGIN UNIVERSE →</button>
+      <p class="muted" style="font-size:12px;margin-top:18px">warning: excessive cuteness may occur</p>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section>
+<div class="container">
+  <h2 class="section-title">Negin.exe is running... <span class="pink">♥</span></h2>
+  <p class="muted">چند تا قابلیت کاملاً غیرضروری ولی خیلی مهم.</p>
+  <div class="grid">
+    <div class="panel">
+      <h3>💗 میزان دوست‌داشتنی بودن</h3>
+      <div class="score" id="loveScore">100<span style="font-size:18px">%</span></div>
+      <p class="muted">این عدد قابل کاهش نیست. باگ نیست، فیچره.</p>
+      <button class="ghost" onclick="heartRain()">تأیید می‌کنم 😌</button>
+    </div>
+    <div class="panel">
+      <h3>🧠 سیستم تشخیص Negin</h3>
+      <p id="diagnosis" style="font-size:18px;line-height:2">در حال بررسی...</p>
+      <button class="ghost" onclick="diagnose()">دوباره بررسی کن</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="daily">
+<div class="container">
+  <div class="panel">
+    <h2 class="section-title">📊 امتیاز اخلاق امروزِ نگین</h2>
+    <p class="muted">امروز نگین چقدر مهربون، صبور و دوست‌داشتنی بوده؟ خودت نمره بده 😈</p>
+    <div class="question">
+      <label>مهربونی: <b id="kindVal">8</b>/10</label>
+      <input id="kind" type="range" min="0" max="10" value="8" oninput="updateScore()">
+    </div>
+    <div class="question">
+      <label>صبر و حوصله: <b id="patienceVal">7</b>/10</label>
+      <input id="patience" type="range" min="0" max="10" value="7" oninput="updateScore()">
+    </div>
+    <div class="question">
+      <label>ناز و ادا: <b id="cuteVal">10</b>/10</label>
+      <input id="cute" type="range" min="0" max="10" value="10" oninput="updateScore()">
+    </div>
+    <div class="question">
+      <label>میزان اذیت کردن من: <b id="annoyVal">6</b>/10</label>
+      <input id="annoy" type="range" min="0" max="10" value="6" oninput="updateScore()">
+    </div>
+    <hr style="border:0;border-top:1px solid #292934;margin:25px 0">
+    <div class="score"><span id="dailyScore">87</span><small>/100</small></div>
+    <div class="result" id="dailyResult">نتیجه: امروز هم قابل قبولی، خانم. 😌</div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="panel letter">
+    <h2 class="section-title">💌 یک نامه کوچک</h2>
+    <p style="line-height:2;color:#d8d4db">
+      نگین،<br>
+      این سایت شاید خیلی چیز بزرگی نباشه، ولی خواستم یه گوشه کوچیک از اینترنت داشته باشی
+      که فقط برای تو ساخته شده باشه. یه جای کوچیک برای عکس‌ها، خاطره‌ها، شوخی‌های خودمون
+      و چیزهایی که شاید توی روزمرگی یادمون بره.
+      <br><br>
+      و اگر یه روز حالت خوب نبود، حداقل بیا اینجا و یادت باشه یه نفر هست که از بودن تو
+      توی زندگیش خوشحاله. ♡
+    </p>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="panel">
+    <h2 class="section-title">🔐 فایل‌های محرمانه Negin.exe</h2>
+    <p class="muted">چند حقیقت کاملاً علمی:</p>
+    <details><summary>حقیقت شماره ۱</summary><p>وقتی نگین میگه «هیچی نیست»، احتمالاً یک پرونده تحقیقاتی کامل لازم داریم.</p></details>
+    <details><summary>حقیقت شماره ۲</summary><p>احتمال اینکه نگین نازتر از چیزی باشه که خودش فکر می‌کنه: 100٪.</p></details>
+    <details><summary>حقیقت شماره ۳</summary><p>این سایت بدون اجازه قلب سازنده ساخته شده و سازنده مسئولیتی قبول نمی‌کند.</p></details>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>Made with questionable amounts of love for Negin ♡</footer>
+
+<script>
+function enterSite(){document.getElementById('main').scrollIntoView({behavior:'smooth'});setTimeout(diagnose,500)}
+function diagnose(){
+ const arr=["تشخیص قطعی: 73% ناز، 19% شیطنت، 8% «من کاری نکردم» 😇",
+ "اسکن کامل شد: خطر جدیِ دوست‌داشتنی بودن مشاهده شد. ❤️",
+ "نتیجه آزمایش: زیادی نگینی. سیستم توان پردازش ندارد.",
+ "Diagnosis: cute but potentially dangerous. Proceed with caution. 😈"];
+ document.getElementById('diagnosis').textContent=arr[Math.floor(Math.random()*arr.length)];
+}
+function updateScore(){
+ let k=+kind.value,p=+patience.value,c=+cute.value,a=+annoy.value;
+ let score=Math.round((k*30+p*25+c*30+(10-a)*15)/10);
+ document.getElementById('kindVal').textContent=k;document.getElementById('patienceVal').textContent=p;
+ document.getElementById('cuteVal').textContent=c;document.getElementById('annoyVal').textContent=a;
+ document.getElementById('dailyScore').textContent=score;
+ let t=score>=90?"نتیجه: امروز رسماً فرشته‌ای. مشکوکه. 😇":score>=75?"نتیجه: قابل قبولی، خانم. 😌":score>=55?"نتیجه: امروز یه کم باید روی خودت کار کنی! 😐":"نتیجه: جلسه بررسی فوری تشکیل می‌شود. 😂";
+ document.getElementById('dailyResult').textContent=t;
+}
+function heartRain(){
+ for(let i=0;i<18;i++){let h=document.createElement('div');h.className='heart';h.textContent=['♥','♡','💗','💖'][Math.floor(Math.random()*4)];h.style.left=(35+Math.random()*30)+'vw';h.style.bottom='30px';h.style.setProperty('--x',(Math.random()*160-80)+'px');h.style.animationDelay=(Math.random()*.5)+'s';document.body.appendChild(h);setTimeout(()=>h.remove(),2200)}
+ showToast("تأیید شد. Negin is officially adorable. ♡")
+}
+function showToast(t){let x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2200)}
+diagnose(); updateScore();
+</script>
+</body>
+</html>
